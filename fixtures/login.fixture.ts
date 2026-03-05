@@ -1,4 +1,4 @@
-import {test as base} from '@playwright/test';
+import {test as base,expect} from '@playwright/test';
 import {LoginPage} from '../pages/login.page';
 
 
@@ -14,3 +14,5 @@ export const test = base.extend<MyFixtures>({
         // await page.close();
     }
 });
+
+export {expect}
