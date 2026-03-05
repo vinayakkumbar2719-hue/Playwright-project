@@ -15,6 +15,10 @@ export class LoginPage{
 
     }
 
+    async goto() {
+        await this.page.goto('/web/index.php/auth/login');
+    }
+
     async enterUsername(username: string){
         await this.username.fill(username);
     }
