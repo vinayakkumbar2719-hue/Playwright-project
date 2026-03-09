@@ -8,5 +8,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["tests", "pages", "playwright.config.ts"]
+  "include": ["tests", "pages", "playwright.config.ts", "api"]
 }
