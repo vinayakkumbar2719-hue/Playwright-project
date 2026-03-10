@@ -4,16 +4,14 @@ export class LoginAPI {
 
     constructor(private request: APIRequestContext) {}
 
-   async getCSRFToken() {
-    const response = await this.request.get('/login');
-    const body = await response.text();
-
-    const match = body.match(/name="_token"[^>]*value="([^"]+)"/);
-
-    if (!match) {
-        throw new Error("CSRF token not found");
+    async login(data:Record<string, string>) {
+        const response = await this.request.post('/web/index.php/auth/validate', {
+            data: {
+                ...data,
+            },
+            timeout: 5000
+        });
+        return response;
     }
 
-    return match[1];
-}
 }
