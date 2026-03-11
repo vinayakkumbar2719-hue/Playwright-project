@@ -2,6 +2,9 @@ import { test,expect } from '@playwright/test';
 import { LoginAPI } from '../../api/login.api';
 import users from '../../test-data/users.json';
 
+
+test.use({storageState:undefined})
+
 test('OrangeHRM Login API Test', async ({request}) => {
 
   const login = new LoginAPI(request)

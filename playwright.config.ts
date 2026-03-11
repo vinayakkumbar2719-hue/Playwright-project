@@ -13,6 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  // global setup: './global-setup/global-setup-api.ts',
+  globalSetup: './global-setup/global-setup.ts',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,7 +28,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: 'https://opensource-demo.orangehrmlive.com',
+    baseURL: process.env.BASEURL,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -37,10 +39,21 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+    name: 'ui-tests',
+    testDir: './tests/ui',
+    use: {
+      ...devices['Desktop Chrome'],
+      storageState: 'storageState-ui.json'
+    }
+  },
 
+  {
+    name: 'api-tests',
+    testDir: './tests/api',
+    use: {
+      storageState: 'storageState-api.json'
+    }
+  }
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },

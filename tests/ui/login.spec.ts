@@ -5,6 +5,9 @@ import users from '../../test-data/users.json';
 
 let loginPage: LoginPage;
 
+
+test.use({storageState:undefined});
+
 test.describe('Login Tests', () => {
     
     test.beforeEach(async ({page}) => {
