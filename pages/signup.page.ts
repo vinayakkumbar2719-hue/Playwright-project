@@ -24,6 +24,7 @@ export class Signuppage {
   readonly zipcode:Locator
   readonly mobileNumber:Locator
   readonly CreateButton:Locator
+  readonly ContinueButton:Locator
 
   constructor(private page: Page){
 
@@ -53,6 +54,7 @@ export class Signuppage {
     this.zipcode=page.getByTestId('zipcode')
     this.mobileNumber=page.getByTestId('mobile_number')
     this.CreateButton=page.getByRole('button',{name:'Create Account'})
+    this.ContinueButton=page.getByTestId('continue-button')
   }
 
 
@@ -98,8 +100,14 @@ export class Signuppage {
 
   }
 
+  async clickContinue(){
+    await this.ContinueButton.click()
+  }
+
   async createAccount(data: Record<string,string>){
     await this.enterAccountInfo(data);
     await this.enterOtherInfo(data)
+    
+
   }
 }

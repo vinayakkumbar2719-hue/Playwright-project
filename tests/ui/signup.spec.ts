@@ -27,5 +27,8 @@ test('Enter account information and create account',async({signupauth,page})=>{
     await signupauth.createAccount(data);
 
     await expect(page.getByText('Account Created!')).toBeVisible()
+    await signupauth.clickContinue()
+
+    await page.pause()
     
 })
