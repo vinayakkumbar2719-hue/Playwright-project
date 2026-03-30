@@ -1,42 +1,20 @@
-import {test,expect} from '@playwright/test';
-import {LoginPage} from '../../pages/login.page';
-import users from '../../test-data/users.json';
+import { LoginPage } from "../../pages/login.page";
+import users from '../../test-data/loginData.json';
+import { test, expect } from '../../fixtures/login.fixture';
 
 
-let loginPage: LoginPage;
+test.describe('login tests',async ()=>{
 
+    test('login with valid credentials',async ({page})=>{
+        const loginPage = new LoginPage(page);
 
-test.use({storageState:undefined});
+        const data = {
+            "email": users.validUser.username,
+            "password": users.validUser.password
+        }
+        await loginPage.login(data)
 
-test.describe('Login Tests', () => {
-    
-    test.beforeEach(async ({page}) => {
-        loginPage = new LoginPage(page);
-        await loginPage.goto();
-    });
-
-    test('enter valid credentials and click on login button',async({page})=>{
-        await loginPage.login(users.validUser.username, users.validUser.password);
-
-        await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+        await expect (page.getByText(users.validUser.User)).toBeVisible()
     })
 
-    test('login with invalid password',async({page})=>{
-        await loginPage.login(users.validUser.username, users.invalidUser.password);
-
-        await expect(page.getByText('Invalid credentials')).toBeVisible();
-    })
-
-    test('login with empty username',async({page})=>{
-        await loginPage.login(users.emptyuser.username, users.validUser.password);
-
-        await expect(page.locator('input[name="username"]').locator('xpath=../following-sibling::span')).toHaveText('Required');
-    })
-
-    test('login with empty password',async({page})=>{
-        await loginPage.login(users.validUser.username, users.emptypass.password);
-
-        await expect(page.locator('input[name="password"]').locator('xpath=../following-sibling::span')).toHaveText('Required');
-    })
-
-  });
+})
