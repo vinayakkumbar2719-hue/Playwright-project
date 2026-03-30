@@ -25,6 +25,7 @@ export class Signuppage {
   readonly mobileNumber:Locator
   readonly CreateButton:Locator
   readonly ContinueButton:Locator
+  readonly DeleteLink:Locator
 
   constructor(private page: Page){
 
@@ -55,6 +56,7 @@ export class Signuppage {
     this.mobileNumber=page.getByTestId('mobile_number')
     this.CreateButton=page.getByRole('button',{name:'Create Account'})
     this.ContinueButton=page.getByTestId('continue-button')
+    this.DeleteLink=page.getByRole('link',{name:' Delete Account'})
   }
 
 
@@ -104,10 +106,13 @@ export class Signuppage {
     await this.ContinueButton.click()
   }
 
+  async deleteAccount(){
+    await this.DeleteLink.click()
+  }
+
   async createAccount(data: Record<string,string>){
     await this.enterAccountInfo(data);
     await this.enterOtherInfo(data)
-    
 
   }
 }

@@ -4,6 +4,7 @@ import { Signuppage } from '../pages/signup.page';
 
 type SignupFixtures = {
   signupauth: Signuppage;
+  
 };
 
 export const test = base.extend<SignupFixtures>({

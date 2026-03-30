@@ -1,41 +1,39 @@
-import {Page,Locator} from '@playwright/test';
+import {Page,Locator} from '@playwright/test'
+import {loginData} from '../types/login.type'
 
 
 export class LoginPage{
-    readonly page: Page;
-    readonly username: Locator;
-    readonly password: Locator;
-    readonly loginButton: Locator;  
+    readonly email:Locator
+    readonly password:Locator
+    readonly loginButton:Locator
 
-    constructor(page: Page){
-        this.page = page;
-        this.username = page.getByRole('textbox', { name: 'Username' });    
-        this.password = page.getByRole('textbox', { name: 'Password' });
-        this.loginButton = page.getByRole('button', { name: 'Login' });
-
-    }
-
-    async goto() {
-        await this.page.goto('/web/index.php/auth/login');
-    }
-
-    async enterUsername(username: string){
-        await this.username.fill(username);
-    }
-
-    async enterPassword(password: string){
-        await this.password.fill(password);
-    }
-
-    async clickLoginButton(){
-        await this.loginButton.click();
+    constructor(private page:Page){
+        this.email = page.getByTestId('login-email')
+        this.password = page.getByTestId('login-password')
+        this.loginButton = page.getByRole('button', { name: 'Login' })
     }
 
 
-    async login(username: string, password: string){
-        await this.enterUsername(username);
-        await this.enterPassword(password);
-        await this.clickLoginButton();
+
+
+    async goto(){
+        await this.page.goto('/login');
     }
+
+    async enterEmailAndPassword(data: loginData){
+        console.log('Entering the credentials ')
+        await this.email.fill(data.email)
+        await this.password.fill(data.password)
+        await this.loginButton.click()
+    }
+
+
+    async login(data: loginData){
+        await this.goto()
+        await this.enterEmailAndPassword(data)
+
+    }
+
+    
 
 }

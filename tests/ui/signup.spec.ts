@@ -23,12 +23,13 @@ test('Enter account information and create account',async({signupauth,page})=>{
         "zipcode": UserData.zipcode,
         "mobileNumber": UserData.mobileNumber
     }
-
+    
     await signupauth.createAccount(data);
 
     await expect(page.getByText('Account Created!')).toBeVisible()
     await signupauth.clickContinue()
+    await signupauth.deleteAccount()
 
-    await page.pause()
+    await expect (page.getByText('Account Deleted!')).toBeVisible()
     
 })
