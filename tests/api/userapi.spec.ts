@@ -1,7 +1,9 @@
-import {test,expect} from '@playwright/test'
+
 import { CreateUserClient } from '../../api/api-client/user.client';
 import {generateUser} from '../../utils/fakerutils';
-import { CreateAccount } from '../../api/type/createuser.type';
+import { CreateAccount } from '../../api/type/user.type';
+import {test,expect} from '../../fixtures/api.fixture';
+import { create } from 'node:domain';
 
 
 
@@ -9,30 +11,16 @@ import { CreateAccount } from '../../api/type/createuser.type';
 test('create user account',async({request})=>{
     const createUserClient=new CreateUserClient(request)
     const UserData = generateUser();
-
-   const data: CreateAccount = {
-        name: UserData.name,
-        email: UserData.email,
-        password: UserData.password,
-        title: 'Mr',
-        birth_date: UserData.day,
-        birth_month: UserData.month,
-        birth_year: UserData.year,
-        firstname: UserData.firstName,
-        lastname: UserData.lastName,
-        company: UserData.company,
-        address1: UserData.address1,
-        country: UserData.country,
-        zipcode: UserData.zipcode,
-        state: UserData.state,
-        city: UserData.city,
-        mobile_number: UserData.mobileNumber
-    };
-
-    const response = await createUserClient.createUser(data)
-
+    const response = await createUserClient.createUser(UserData)
     await expect(response.status()).toBe(200)
-    await expect(response.ok()).toBeTruthy()
-    
+    await expect(response.ok()).toBeTruthy()    
+})
 
+
+test('login with vbalid user',async({createUserData})=>{
+    const {client,email,password} = createUserData;
+    const response = await client.loginUser({email,password})
+    console.log(await response.text())
+    await expect(response.status()).toBe(200)
+    await expect(response.ok()).toBeTruthy()    
 })

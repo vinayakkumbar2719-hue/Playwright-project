@@ -17,3 +17,8 @@ export type CreateAccount = {
   city: string;
   mobile_number: string;
 };
+
+export type LoginAccount = {
+  email: string;
+  password: string;
+};

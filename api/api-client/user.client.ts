@@ -1,5 +1,5 @@
 import { APIRequestContext } from "@playwright/test";
-import { CreateAccount } from "../type/createuser.type";
+import { CreateAccount,LoginAccount } from "../type/user.type";
 
 
 export class CreateUserClient {
@@ -11,7 +11,12 @@ export class CreateUserClient {
         return response
     }
 
+    async loginUser(data:LoginAccount){
+        const response=await this.request.post('/api/verifyLogin',{form:data})
+        return response
 
+    }
+  
 
 
 }

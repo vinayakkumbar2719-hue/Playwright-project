@@ -1,17 +1,32 @@
-import {test as base} from '@playwright/test';
-import {LoginAPI} from '../api/login.api';
+import { test as base,expect } from '@playwright/test';
+import { CreateUserClient } from '../api/api-client/user.client';
+import {generateUser} from '../utils/fakerutils';
 
-type myfixture = {
-    loginAPI: LoginAPI;
+type CreateUserFixture = {
+  createUserData: {
+    client: CreateUserClient;
+    email: string;
+    password: string;
+  };
+};
 
-}
+export const test = base.extend<CreateUserFixture>({
+  createUserData: async ({ request }, use) => {
+    const createUserClient = new CreateUserClient(request);
+    const data = generateUser();
 
-export const test = base.extend<myfixture>({
-    loginAPI: async ({request}, use) => {
-        const loginAPI = new LoginAPI(request);
-        await use(loginAPI);
-    }
-})
-    
-export {expect} from '@playwright/test';
+    const email = data.email;
+    const password = data.password;
 
+    await createUserClient.createUser(data);
+
+    await use({
+      client: createUserClient,
+      email,
+      password
+    });
+  }
+});
+
+
+export { expect };
