@@ -7,6 +7,7 @@ type CreateUserFixture = {
     client: CreateUserClient;
     email: string;
     password: string;
+    user:string;
   };
 };
 
@@ -17,13 +18,17 @@ export const test = base.extend<CreateUserFixture>({
 
     const email = data.email;
     const password = data.password;
+    const user = data.name;
 
     await createUserClient.createUser(data);
+    
 
     await use({
       client: createUserClient,
       email,
-      password
+      password,
+      user
+      
     });
   }
 });

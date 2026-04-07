@@ -4,12 +4,14 @@ on:
   push:
      branches:
       - '**'
-  pull_request:
-    branches: [ main, master ]
+
 
 jobs:
   test:
     runs-on: windows-latest
+
+    env:
+      BASEURL=${{ secrets.BASE_URL }} 
 
     steps:
       - name: Checkout Repository
