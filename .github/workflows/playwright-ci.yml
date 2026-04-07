@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      BASE_URL:${{ secrets.BASE_URL }} 
+      BASE_URL: ${{ secrets.BASE_URL }} 
 
     steps:
       - name: Checkout Repository
