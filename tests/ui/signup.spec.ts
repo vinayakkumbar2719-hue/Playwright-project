@@ -10,18 +10,18 @@ test('Enter account information and create account',async({signupauth,page})=>{
     const data={
         "name": UserData.name,
         "password": UserData.password,
-        "day": UserData.day,
-        "month": UserData.month,
-        "year": UserData.year,
-        "firstName": UserData.firstName,
-        "lastName": UserData.lastName,
+        "day": UserData.birth_date,
+        "month": UserData.birth_month,
+        "year": UserData.birth_year,
+        "firstName": UserData.firstname,
+        "lastName": UserData.lastname,
         "company": UserData.company,
         "address": UserData.address1,
         "country": UserData.country,
         "state": UserData.state,
         "city": UserData.city,
         "zipcode": UserData.zipcode,
-        "mobileNumber": UserData.mobileNumber
+        "mobileNumber": UserData.mobile_number
     }
     
     await signupauth.createAccount(data);
