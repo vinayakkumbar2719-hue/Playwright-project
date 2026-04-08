@@ -1,6 +1,6 @@
 {
-    "validUser": {
-        "username": "vinayaktestautomation@gmail.com",
+    "InvalidUser": {
+        "email": "vinayaktestautomation@gmail.com",
         "password": "Vinayak123",
         "User": "Vinayak"
     }

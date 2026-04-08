@@ -6,11 +6,13 @@ export class LoginPage{
     readonly email:Locator
     readonly password:Locator
     readonly loginButton:Locator
+    readonly deletLink:Locator
 
     constructor(private page:Page){
         this.email = page.getByTestId('login-email')
         this.password = page.getByTestId('login-password')
         this.loginButton = page.getByRole('button', { name: 'Login' })
+        this.deletLink = page.getByRole('link', { name: ' Delete Account' })
     }
 
 
@@ -27,7 +29,10 @@ export class LoginPage{
         await this.loginButton.click()
     }
 
-
+    async deleteAccount(){
+        await this.deletLink.click()
+    }
+    
     async login(data: loginData){
         await this.goto()
         await this.enterEmailAndPassword(data)
