@@ -7,7 +7,7 @@ test.describe('login tests',()=>{
 
     test.describe.configure({mode:'parallel'})
 
-    test('login with valid credentials',async ({createUserData,page})=>{
+    test('login with valid credentials ',async ({createUserData,page})=>{
         const loginPage = new LoginPage(page);
         const {email,password,user} = createUserData
 
