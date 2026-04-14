@@ -4,7 +4,6 @@ import { test, expect } from '../../fixtures/api.fixture';
 
 
 test.describe('login tests',()=>{
-
     test.describe.configure({mode:'parallel'})
 
     test('login with valid credentials ',async ({createUserData,page})=>{
@@ -28,5 +27,18 @@ test.describe('login tests',()=>{
         await expect (page.getByText('Your email or password is incorrect!')).toBeVisible()
     })
 
+    test('login as user verify home page and logout',async ({createUserData,page})=>{
+        const {email,password,user} = createUserData
+        const loginPage = new LoginPage(page);
+        const data = {
+            "email": email,
+            "password": password,
+            "user": user
+        }
+        await loginPage.login(data)
+        await expect (page.getByText(user)).toBeVisible()
+        await loginPage.logout()
+        await expect(page.url()).toContain('/login')
+    })
 
 })
