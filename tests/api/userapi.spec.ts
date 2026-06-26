@@ -9,7 +9,7 @@ import { loginSchema,createUserSchema } from '../../schemas/user.schema';
 
 
 
-test('create user account',async({request})=>{
+test('create user account',{tag:'@smoke'},async({request})=>{
     const createUserClient=new CreateUserClient(request)
     const UserData = generateUser();
     const response = await createUserClient.createUser(UserData)
